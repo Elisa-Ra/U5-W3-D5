@@ -19,7 +19,7 @@ public record EventoDTO(
         @NotEmpty(message = "Il luogo dell'evento è obbligatorio!")
         @Size(min = 3, max = 30, message = "Il nome del luogo deve essere compreso tra 3 e 30 caratteri.")
         String luogo,
-        @Max(value = 150, message = "Il numero massimo di posti per l'evento è 300")
+        @Max(value = 300, message = "Il numero massimo di posti per l'evento è 300")
         @Min(value = 1, message = "Il numero minimo di posti per l'evento è 1")
         int posti
 
