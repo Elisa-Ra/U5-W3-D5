@@ -2,6 +2,7 @@ package elisaraeli.U5_W3_D5.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,7 +38,9 @@ public class SecurityConfig {
         // Disabilitiamo il meccanismo di default di Spring Security che ritorna 401 a ogni richiesta.
         // In modo da implementare un meccanismo di autenticazione personalizzato
         httpSecurity.authorizeHttpRequests(req ->
-                req.requestMatchers("/**").permitAll());
+                req.requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/eventi/**").permitAll()
+                        .anyRequest().authenticated());
 
         httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
