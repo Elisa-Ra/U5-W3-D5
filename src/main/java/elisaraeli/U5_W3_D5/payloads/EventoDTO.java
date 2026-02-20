@@ -1,5 +1,6 @@
 package elisaraeli.U5_W3_D5.payloads;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ public record EventoDTO(
         @Size(min = 3, max = 60, message = "La descrizione deve essere compresa tra 3 e 60 caratteri.")
         String descrizione,
         @NotNull(message = "La data dell'evento è obbligatoria!")
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDate data,
         @NotEmpty(message = "Il luogo dell'evento è obbligatorio!")
         @Size(min = 3, max = 30, message = "Il nome del luogo deve essere compreso tra 3 e 30 caratteri.")
