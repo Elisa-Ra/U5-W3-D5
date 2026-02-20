@@ -1,7 +1,6 @@
 package elisaraeli.U5_W3_D5.security;
 
 import elisaraeli.U5_W3_D5.entities.Utente;
-import elisaraeli.U5_W3_D5.exceptions.UnauthorizedException;
 import elisaraeli.U5_W3_D5.services.UtenteService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,8 +36,11 @@ public class JWTCheckerFilter extends OncePerRequestFilter {
 
         // Controllo se la richiesta ha l'header Authorization nel formato Bearer + token
         String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer "))
-            throw new UnauthorizedException("Inserire il token nell'Authorization header nel formato corretto");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 
         // Estraggo il token dall'header
         String accessToken = authHeader.replace("Bearer ", "");
